@@ -990,8 +990,10 @@ function AIAgents() {
       color: 'from-blue-500 to-cyan-500',
       demo: {
         messages: [
-          { from: 'user', text: '¿Qué me recomiendas para esta noche?' },
-          { from: 'ai', text: 'Basándome en tus preferencias, te recomiendo nuestro Espresso Martini. Es el favorito de clientes como tú que prefieren cócteles con café.' },
+          { from: 'user', text: 'Quiero pedir un Espresso Martini para la mesa 7' },
+          { from: 'ai', text: '¡Perfecto! He registrado 1 Espresso Martini para la mesa 7. El total es $7.500. ¿Deseas agregar algo más a tu orden?' },
+          { from: 'user', text: 'Sí, agrega 2 cervezas IPA' },
+          { from: 'ai', text: 'Listo. Tu orden actualizada: 1 Espresso Martini + 2 Cervezas IPA. Total: $18.500. Tiempo estimado: 4 minutos. ✓' },
         ]
       }
     },
