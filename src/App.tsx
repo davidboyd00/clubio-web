@@ -527,6 +527,14 @@ function SoftwareShowcase() {
     });
   };
 
+  const updateQuantity = (name: string, delta: number) => {
+    setCartItems(prev => {
+      return prev
+        .map(item => item.name === name ? { ...item, qty: item.qty + delta } : item)
+        .filter(item => item.qty > 0);
+    });
+  };
+
   const total = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
   return (
@@ -645,11 +653,17 @@ function SoftwareShowcase() {
                         <p className="text-xs text-gray-500">${item.price.toLocaleString()} x {item.qty}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <button className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+                        <button
+                          onClick={() => updateQuantity(item.name, -1)}
+                          className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center hover:bg-red-100 hover:text-red-600 transition-colors"
+                        >
                           <Minus className="w-3 h-3" />
                         </button>
                         <span className="text-sm font-medium w-4 text-center">{item.qty}</span>
-                        <button className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+                        <button
+                          onClick={() => updateQuantity(item.name, 1)}
+                          className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center hover:bg-green-100 hover:text-green-600 transition-colors"
+                        >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
