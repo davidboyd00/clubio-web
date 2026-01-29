@@ -13,7 +13,11 @@ import {
   Play,
   CreditCard,
   TrendingUp,
-  Wifi
+  Wifi,
+  Bot,
+  MessageSquare,
+  Brain,
+  Sparkles
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -23,6 +27,7 @@ function Navbar() {
 
   const links = [
     { name: 'Características', href: '#features' },
+    { name: 'IA', href: '#ai-agents' },
     { name: 'Precios', href: '#pricing' },
     { name: 'Contacto', href: '#contact' },
   ];
@@ -36,7 +41,7 @@ function Navbar() {
             <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center">
               <span className="text-white font-bold text-xl">C</span>
             </div>
-            <span className="font-bold text-xl text-gray-900">Clubio</span>
+            <span className="font-bold text-xl text-gray-900">Clubiio</span>
           </a>
 
           {/* Desktop Nav */}
@@ -105,8 +110,8 @@ function Hero() {
           {/* Content */}
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full text-primary-700 text-sm font-medium mb-6">
-              <Zap className="w-4 h-4" />
-              <span>Nuevo: Festival Mode con Queue Engine</span>
+              <Sparkles className="w-4 h-4" />
+              <span>Nuevo: Agentes de IA para tu negocio</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
@@ -115,7 +120,7 @@ function Hero() {
             </h1>
 
             <p className="text-lg lg:text-xl text-gray-600 mb-8 max-w-xl">
-              Optimiza tus ventas con nuestra plataforma intuitiva. Reduce tiempos de espera,
+              Optimiza tus ventas con nuestra plataforma intuitiva potenciada por IA. Reduce tiempos de espera,
               aumenta la satisfacción de tus clientes y maximiza tus ingresos.
             </p>
 
@@ -219,12 +224,12 @@ function Hero() {
 
             <div className="absolute -right-4 bottom-1/4 bg-white rounded-xl shadow-xl p-4 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Tiempo espera</p>
-                  <p className="font-bold text-gray-900">-45%</p>
+                  <p className="text-xs text-gray-500">AI Activo</p>
+                  <p className="font-bold text-gray-900">24/7</p>
                 </div>
               </div>
             </div>
@@ -360,6 +365,204 @@ function Features() {
   );
 }
 
+// AI Agents Section
+function AIAgents() {
+  const agents = [
+    {
+      icon: MessageSquare,
+      name: 'Asistente de Ventas',
+      description: 'Responde consultas de clientes automáticamente. Recomienda productos basándose en preferencias y historial de compras.',
+      capabilities: ['Atención 24/7', 'Recomendaciones personalizadas', 'Reservas automáticas', 'Respuestas en segundos'],
+      color: 'from-blue-500 to-cyan-500',
+    },
+    {
+      icon: Brain,
+      name: 'Analista de Negocio',
+      description: 'Analiza patrones de venta y genera insights accionables. Predice demanda y optimiza inventario automáticamente.',
+      capabilities: ['Predicción de demanda', 'Análisis de tendencias', 'Alertas proactivas', 'Reportes inteligentes'],
+      color: 'from-purple-500 to-pink-500',
+    },
+    {
+      icon: Bot,
+      name: 'Operador de Barras',
+      description: 'Gestiona y balancea la carga entre barras en tiempo real. Optimiza el flujo de órdenes para minimizar esperas.',
+      capabilities: ['Balanceo automático', 'Priorización inteligente', 'Gestión de colas', 'Optimización continua'],
+      color: 'from-orange-500 to-red-500',
+    },
+  ];
+
+  return (
+    <section id="ai-agents" className="section">
+      <div className="container-custom">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full text-purple-700 text-sm font-medium mb-6">
+            <Sparkles className="w-4 h-4" />
+            <span>Inteligencia Artificial</span>
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Agentes de IA que{' '}
+            <span className="gradient-text">trabajan por ti</span>
+          </h2>
+          <p className="text-lg text-gray-600">
+            Automatiza tareas repetitivas y potencia tu negocio con agentes inteligentes
+            que aprenden y mejoran continuamente.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {agents.map((agent, index) => (
+            <div
+              key={index}
+              className="group relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover overflow-hidden"
+            >
+              {/* Background gradient on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${agent.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+
+              <div className="relative">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${agent.color} flex items-center justify-center mb-6`}>
+                  <agent.icon className="w-8 h-8 text-white" />
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{agent.name}</h3>
+                <p className="text-gray-600 mb-6">{agent.description}</p>
+
+                <ul className="space-y-2">
+                  {agent.capabilities.map((capability, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span>{capability}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* AI Demo Section */}
+        <div className="relative bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 rounded-3xl overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+
+          <div className="relative grid lg:grid-cols-2 gap-8 p-8 lg:p-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-sm font-medium text-white mb-4">
+                <Bot className="w-4 h-4" />
+                Powered by AI
+              </div>
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                La IA que entiende tu negocio nocturno
+              </h3>
+              <p className="text-gray-300 mb-6">
+                Nuestros agentes de IA están entrenados específicamente para la industria de entretenimiento nocturno.
+                Entienden los picos de demanda, las preferencias de los clientes y las dinámicas únicas de tu negocio.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-white/10 backdrop-blur rounded-xl p-4">
+                  <p className="text-3xl font-bold text-white">85%</p>
+                  <p className="text-gray-400 text-sm">Consultas resueltas por IA</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur rounded-xl p-4">
+                  <p className="text-3xl font-bold text-white">3x</p>
+                  <p className="text-gray-400 text-sm">Más rápido que manual</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur rounded-xl p-4">
+                  <p className="text-3xl font-bold text-white">24/7</p>
+                  <p className="text-gray-400 text-sm">Disponibilidad total</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur rounded-xl p-4">
+                  <p className="text-3xl font-bold text-white">+40%</p>
+                  <p className="text-gray-400 text-sm">Eficiencia operativa</p>
+                </div>
+              </div>
+
+              <a href="#contact" className="btn btn-primary">
+                Conoce nuestros agentes
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </a>
+            </div>
+
+            {/* Chat mockup */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-sm bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                <div className="bg-gray-700 px-4 py-3 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium text-sm">Asistente Clubiio</p>
+                    <p className="text-green-400 text-xs flex items-center gap-1">
+                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                      En línea
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-4 space-y-4 h-72">
+                  {/* AI Message */}
+                  <div className="flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="bg-gray-700 rounded-2xl rounded-tl-none px-4 py-2 max-w-[80%]">
+                      <p className="text-white text-sm">¡Hola! Soy tu asistente de Clubiio. ¿En qué puedo ayudarte hoy?</p>
+                    </div>
+                  </div>
+
+                  {/* User Message */}
+                  <div className="flex justify-end">
+                    <div className="bg-primary-600 rounded-2xl rounded-tr-none px-4 py-2 max-w-[80%]">
+                      <p className="text-white text-sm">¿Cuál es el producto más vendido esta noche?</p>
+                    </div>
+                  </div>
+
+                  {/* AI Response */}
+                  <div className="flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="bg-gray-700 rounded-2xl rounded-tl-none px-4 py-2 max-w-[80%]">
+                      <p className="text-white text-sm">El producto más vendido es <span className="text-green-400 font-medium">Cerveza Artesanal IPA</span> con 127 unidades. Un 23% más que el promedio del mes.</p>
+                    </div>
+                  </div>
+
+                  {/* Typing indicator */}
+                  <div className="flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-700 px-4 py-3">
+                  <div className="flex items-center gap-2 bg-gray-600 rounded-full px-4 py-2">
+                    <input
+                      type="text"
+                      placeholder="Escribe un mensaje..."
+                      className="flex-1 bg-transparent text-white text-sm placeholder-gray-400 outline-none"
+                      disabled
+                    />
+                    <button className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4 text-white" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // Benefits Section
 function Benefits() {
   const benefits = [
@@ -398,7 +601,7 @@ function Benefits() {
   ];
 
   return (
-    <section className="section">
+    <section className="section bg-gray-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 rounded-full text-green-700 text-sm font-medium mb-6">
@@ -574,9 +777,9 @@ function Pricing() {
         'Hasta 5 puntos de venta',
         'Usuarios ilimitados',
         'Analytics avanzados',
+        'Agentes de IA incluidos',
         'Soporte prioritario 24/7',
         'API access',
-        'Integraciones premium',
       ],
       popular: true,
       customPrice: false,
@@ -588,9 +791,9 @@ function Pricing() {
       features: [
         'Puntos de venta ilimitados',
         'Festival Mode + Queue Engine',
+        'IA personalizada para tu evento',
         'Dashboard en tiempo real',
         'Soporte dedicado on-site',
-        'Setup y capacitación',
         'SLA 99.99% garantizado',
       ],
       popular: false,
@@ -685,7 +888,7 @@ function CTA() {
             ¿Listo para transformar tu negocio?
           </h2>
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-            Únete a más de 500 bares y festivales que ya usan Clubio.
+            Únete a más de 500 bares y festivales que ya usan Clubiio.
             Prueba gratis por 14 días, sin tarjeta de crédito.
           </p>
 
@@ -715,7 +918,7 @@ function CTA() {
 // Footer
 function Footer() {
   const links = {
-    Producto: ['Características', 'Precios', 'Integraciones', 'API'],
+    Producto: ['Características', 'IA', 'Precios', 'Integraciones', 'API'],
     Empresa: ['Sobre Nosotros', 'Blog', 'Carreras', 'Contacto'],
     Legal: ['Privacidad', 'Términos', 'Cookies'],
     Soporte: ['Centro de Ayuda', 'Documentación', 'Status'],
@@ -731,10 +934,10 @@ function Footer() {
               <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center">
                 <span className="text-white font-bold text-xl">C</span>
               </div>
-              <span className="font-bold text-xl text-white">Clubio</span>
+              <span className="font-bold text-xl text-white">Clubiio</span>
             </div>
             <p className="text-gray-400 text-sm">
-              El sistema POS más rápido para bares y festivales.
+              El sistema POS más rápido para bares y festivales, potenciado por IA.
             </p>
           </div>
 
@@ -757,7 +960,7 @@ function Footer() {
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Clubio. Todos los derechos reservados.
+            © {new Date().getFullYear()} Clubiio. Todos los derechos reservados.
           </p>
           <div className="flex gap-6">
             {['Twitter', 'LinkedIn', 'Instagram'].map(social => (
@@ -780,6 +983,7 @@ export default function App() {
       <main>
         <Hero />
         <Features />
+        <AIAgents />
         <Benefits />
         <Pricing />
         <CTA />
