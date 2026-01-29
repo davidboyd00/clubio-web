@@ -1649,7 +1649,7 @@ function CTA() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Reemplazar con tu access key de web3forms.com
+          access_key: 'a408e229-ebd7-419c-9286-2f17a3260569',
           email: email,
           subject: 'Nuevo interesado en Clubiio',
           message: `El usuario con email ${email} está interesado en probar Clubiio.`,
