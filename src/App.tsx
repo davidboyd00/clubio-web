@@ -330,8 +330,11 @@ function Hero() {
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
-                <div className="flex items-center">
-                  <img src="/logo.jpg" alt="Clubiio" className="h-6 w-auto object-contain" />
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">C</span>
+                  </div>
+                  <span className="text-white text-sm font-semibold">Clubiio</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Bell className="w-4 h-4 text-gray-400" />
