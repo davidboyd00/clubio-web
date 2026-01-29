@@ -489,15 +489,126 @@ function Hero() {
   );
 }
 
+// Analytics Dashboard Component with animated chart
+function AnalyticsDashboard() {
+  const [chartHeights, setChartHeights] = useState<number[]>(Array(12).fill(0));
+  const salesData = [20, 35, 45, 30, 55, 70, 85, 95, 80, 65, 45, 30];
+
+  useEffect(() => {
+    // Animate chart bars on mount
+    const timer = setTimeout(() => {
+      setChartHeights(salesData);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="p-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {[
+          { label: 'Ventas Hoy', value: '$4.2M', change: '+12.5%', icon: DollarSign, color: 'bg-green-500' },
+          { label: 'Órdenes', value: '435', change: '+8.2%', icon: Receipt, color: 'bg-blue-500' },
+          { label: 'Clientes', value: '287', change: '+15.3%', icon: Users, color: 'bg-purple-500' },
+          { label: 'Ticket Promedio', value: '$9,770', change: '+3.8%', icon: TrendingUp, color: 'bg-orange-500' },
+        ].map((stat, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="bg-gray-50 rounded-xl p-4"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-600">{stat.label}</span>
+              <div className={`w-8 h-8 rounded-lg ${stat.color} flex items-center justify-center`}>
+                <stat.icon className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+            <p className="text-sm text-green-600">{stat.change}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Sales Chart */}
+        <div className="lg:col-span-2 bg-gray-50 rounded-xl p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-bold text-gray-900">Ventas por Hora</h4>
+            <select className="text-sm bg-white border border-gray-200 rounded-lg px-3 py-1">
+              <option>Hoy</option>
+              <option>Esta Semana</option>
+              <option>Este Mes</option>
+            </select>
+          </div>
+          <div className="flex items-end gap-2 h-48">
+            {chartHeights.map((h, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                <div
+                  className="w-full bg-gradient-to-t from-primary-600 to-primary-400 rounded-t-lg transition-all duration-700 ease-out"
+                  style={{ height: `${h}%` }}
+                />
+                <span className="text-xs text-gray-500">{12 + i}h</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center justify-center gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-primary-500" />
+              <span className="text-gray-600">Ventas: $4.2M</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <span className="text-gray-600">Meta: $3.8M</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Top Products */}
+        <div className="bg-gray-50 rounded-xl p-4">
+          <h4 className="font-bold text-gray-900 mb-4">Top Productos</h4>
+          <div className="space-y-3">
+            {[
+              { name: 'Cerveza IPA', sales: 127, revenue: '$698,500' },
+              { name: 'Pisco Sour', sales: 98, revenue: '$637,000' },
+              { name: 'Vodka Tonic', sales: 85, revenue: '$425,000' },
+              { name: 'Aperol Spritz', sales: 72, revenue: '$504,000' },
+            ].map((product, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center">
+                  {i + 1}
+                </span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-gray-900">{product.name}</p>
+                  <p className="text-xs text-gray-500">{product.sales} vendidos</p>
+                </div>
+                <span className="text-sm font-bold text-gray-900">{product.revenue}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Software Showcase Section with Tabs
 function SoftwareShowcase() {
   const [activeTab, setActiveTab] = useState(0);
+  const [activeCategory, setActiveCategory] = useState('Todos');
   const [cartItems, setCartItems] = useState([
     { name: 'Cerveza Artesanal IPA', price: 5500, qty: 2 },
     { name: 'Pisco Sour', price: 6500, qty: 1 },
   ]);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [chartAnimated, setChartAnimated] = useState(false);
 
   const tabs = [
     { id: 'pos', label: 'Punto de Venta', icon: ShoppingCart },
@@ -513,6 +624,12 @@ function SoftwareShowcase() {
     { name: 'Espresso Martini', price: 7500, icon: Coffee, category: 'Cócteles' },
     { name: 'Corona', price: 4500, icon: Beer, category: 'Cervezas' },
     { name: 'Aperol Spritz', price: 7000, icon: Wine, category: 'Cócteles' },
+    { name: 'Tequila Shot', price: 4000, icon: Martini, category: 'Shots' },
+    { name: 'Jägermeister', price: 4500, icon: Martini, category: 'Shots' },
+    { name: 'Agua Mineral', price: 2000, icon: Coffee, category: 'Sin Alcohol' },
+    { name: 'Jugo Natural', price: 3000, icon: Coffee, category: 'Sin Alcohol' },
+    { name: 'Red Bull', price: 4000, icon: Zap, category: 'Sin Alcohol' },
+    { name: 'Heineken', price: 4800, icon: Beer, category: 'Cervezas' },
   ];
 
   const addToCart = (product: typeof products[0]) => {
@@ -607,12 +724,13 @@ function SoftwareShowcase() {
 
                 {/* Category Pills */}
                 <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-                  {['Todos', 'Cervezas', 'Cócteles', 'Shots', 'Sin Alcohol'].map((cat, i) => (
+                  {['Todos', 'Cervezas', 'Cócteles', 'Shots', 'Sin Alcohol'].map((cat) => (
                     <button
                       key={cat}
+                      onClick={() => setActiveCategory(cat)}
                       className={clsx(
                         'px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
-                        i === 0 ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        activeCategory === cat ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       )}
                     >
                       {cat}
@@ -622,7 +740,9 @@ function SoftwareShowcase() {
 
                 {/* Products */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {products.map((product, i) => (
+                  {products
+                    .filter(p => activeCategory === 'Todos' || p.category === activeCategory)
+                    .map((product, i) => (
                     <button
                       key={i}
                       onClick={() => addToCart(product)}
@@ -697,76 +817,7 @@ function SoftwareShowcase() {
 
           {/* Analytics Dashboard */}
           {activeTab === 1 && (
-            <div className="p-6">
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                {[
-                  { label: 'Ventas Hoy', value: '$4.2M', change: '+12.5%', icon: DollarSign, color: 'bg-green-500' },
-                  { label: 'Órdenes', value: '435', change: '+8.2%', icon: Receipt, color: 'bg-blue-500' },
-                  { label: 'Clientes', value: '287', change: '+15.3%', icon: Users, color: 'bg-purple-500' },
-                  { label: 'Ticket Promedio', value: '$9,770', change: '+3.8%', icon: TrendingUp, color: 'bg-orange-500' },
-                ].map((stat, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-600">{stat.label}</span>
-                      <div className={`w-8 h-8 rounded-lg ${stat.color} flex items-center justify-center`}>
-                        <stat.icon className="w-4 h-4 text-white" />
-                      </div>
-                    </div>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                    <p className="text-sm text-green-600">{stat.change}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid lg:grid-cols-3 gap-6">
-                {/* Sales Chart */}
-                <div className="lg:col-span-2 bg-gray-50 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-bold text-gray-900">Ventas por Hora</h4>
-                    <select className="text-sm bg-white border border-gray-200 rounded-lg px-3 py-1">
-                      <option>Hoy</option>
-                      <option>Esta Semana</option>
-                      <option>Este Mes</option>
-                    </select>
-                  </div>
-                  <div className="flex items-end gap-2 h-48">
-                    {[20, 35, 45, 30, 55, 70, 85, 95, 80, 65, 45, 30].map((h, i) => (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div
-                          className="w-full bg-gradient-to-t from-primary-600 to-primary-400 rounded-t-lg transition-all duration-700"
-                          style={{ height: `${h}%` }}
-                        />
-                        <span className="text-xs text-gray-500">{12 + i}h</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Top Products */}
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <h4 className="font-bold text-gray-900 mb-4">Top Productos</h4>
-                  <div className="space-y-3">
-                    {[
-                      { name: 'Cerveza IPA', sales: 127, revenue: '$698,500' },
-                      { name: 'Pisco Sour', sales: 98, revenue: '$637,000' },
-                      { name: 'Vodka Tonic', sales: 85, revenue: '$425,000' },
-                      { name: 'Aperol Spritz', sales: 72, revenue: '$504,000' },
-                    ].map((product, i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center">
-                          {i + 1}
-                        </span>
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-900">{product.name}</p>
-                          <p className="text-xs text-gray-500">{product.sales} vendidos</p>
-                        </div>
-                        <span className="text-sm font-bold text-gray-900">{product.revenue}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AnalyticsDashboard />
           )}
 
           {/* Inventory */}
