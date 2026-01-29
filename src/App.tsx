@@ -144,9 +144,7 @@ function Navbar() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <a href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center">
-              <span className="text-white font-bold text-xl">C</span>
-            </div>
+            <img src="/logo.jpg" alt="Clubiio" className="w-10 h-10 rounded-xl object-cover" />
             <span className="font-bold text-xl text-gray-900">Clubiio</span>
           </a>
 
@@ -334,9 +332,7 @@ function Hero() {
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">C</span>
-                  </div>
+                  <img src="/logo.jpg" alt="Clubiio" className="w-8 h-8 rounded-lg object-cover" />
                   <span className="text-white text-sm font-medium">Clubiio Dashboard</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1655,9 +1651,7 @@ function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center">
-                <span className="text-white font-bold text-xl">C</span>
-              </div>
+              <img src="/logo.jpg" alt="Clubiio" className="w-10 h-10 rounded-xl object-cover" />
               <span className="font-bold text-xl text-white">Clubiio</span>
             </div>
             <p className="text-gray-400 text-sm">
