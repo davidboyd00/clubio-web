@@ -1603,7 +1603,7 @@ function CTA() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
           >
-            Únete a más de 500 bares y festivales que ya usan Clubiio.
+            Únete a la innovación de vanguardia de los bares que ya usan Clubiio.
           </motion.p>
 
           <motion.form
