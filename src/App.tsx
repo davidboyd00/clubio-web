@@ -1632,6 +1632,41 @@ function Pricing() {
 function CTA() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+
+    try {
+      // Enviar a Web3Forms (servicio gratuito de formularios)
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Reemplazar con tu access key de web3forms.com
+          email: email,
+          subject: 'Nuevo interesado en Clubiio',
+          message: `El usuario con email ${email} está interesado en probar Clubiio.`,
+          from_name: 'Clubiio Website',
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <section id="contact" className="section" ref={sectionRef}>
@@ -1671,29 +1706,67 @@ function CTA() {
             Únete a la innovación de vanguardia de los bares que ya usan Clubiio.
           </motion.p>
 
-          <motion.form
-            className="max-w-md mx-auto relative z-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="tu@email.com"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
-              <motion.button
-                type="submit"
-                className="btn btn-primary whitespace-nowrap"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Comenzar Gratis
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </motion.button>
-            </div>
-          </motion.form>
+          {status === 'success' ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-green-500/20 border border-green-500/30 rounded-xl p-6 max-w-md mx-auto relative z-10"
+            >
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">¡Gracias por tu interés!</h3>
+              <p className="text-green-200">
+                Hemos recibido tu solicitud. Nos pondremos en contacto contigo muy pronto para comenzar tu prueba gratuita de 30 días.
+              </p>
+            </motion.div>
+          ) : (
+            <motion.form
+              onSubmit={handleSubmit}
+              className="max-w-md mx-auto relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tu@email.com"
+                  required
+                  className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+                <motion.button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="btn btn-primary whitespace-nowrap disabled:opacity-50"
+                  whileHover={{ scale: status === 'loading' ? 1 : 1.05 }}
+                  whileTap={{ scale: status === 'loading' ? 1 : 0.95 }}
+                >
+                  {status === 'loading' ? (
+                    <>
+                      <svg className="animate-spin w-4 h-4 mr-2" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Comenzar Gratis
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </motion.button>
+              </div>
+              {status === 'error' && (
+                <p className="text-red-400 text-sm mt-2">
+                  Hubo un error. Por favor intenta de nuevo.
+                </p>
+              )}
+            </motion.form>
+          )}
 
           <motion.p
             className="text-gray-400 text-sm mt-4 relative z-10"
@@ -1716,8 +1789,11 @@ function Footer() {
       <div className="container-custom">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center mb-4">
-              <img src="/logo.jpg" alt="Clubiio" className="h-10 w-auto object-contain" />
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">C</span>
+              </div>
+              <span className="font-bold text-xl text-white">Clubiio</span>
             </div>
             <p className="text-gray-400 text-sm">
               El POS más rápido para bares y festivales, potenciado por IA.
