@@ -143,9 +143,8 @@ function Navbar() {
     )}>
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="/" className="flex items-center gap-2">
-            <img src="/logo.jpg" alt="Clubiio" className="w-10 h-10 rounded-xl object-cover" />
-            <span className="font-bold text-xl text-gray-900">Clubiio</span>
+          <a href="/" className="flex items-center">
+            <img src="/logo.jpg" alt="Clubiio" className="h-10 w-auto object-contain" />
           </a>
 
           <div className="hidden lg:flex items-center gap-8">
@@ -331,9 +330,8 @@ function Hero() {
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src="/logo.jpg" alt="Clubiio" className="w-8 h-8 rounded-lg object-cover" />
-                  <span className="text-white text-sm font-medium">Clubiio Dashboard</span>
+                <div className="flex items-center">
+                  <img src="/logo.jpg" alt="Clubiio" className="h-6 w-auto object-contain" />
                 </div>
                 <div className="flex items-center gap-2">
                   <Bell className="w-4 h-4 text-gray-400" />
@@ -1650,9 +1648,8 @@ function Footer() {
       <div className="container-custom">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <img src="/logo.jpg" alt="Clubiio" className="w-10 h-10 rounded-xl object-cover" />
-              <span className="font-bold text-xl text-white">Clubiio</span>
+            <div className="flex items-center mb-4">
+              <img src="/logo.jpg" alt="Clubiio" className="h-10 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm">
               El POS más rápido para bares y festivales, potenciado por IA.
