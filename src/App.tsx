@@ -17,7 +17,11 @@ import {
   Bot,
   MessageSquare,
   Brain,
-  Sparkles
+  Sparkles,
+  Gauge,
+  Activity,
+  GitBranch,
+  Timer
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -28,8 +32,8 @@ function Navbar() {
   const links = [
     { name: 'Características', href: '#features' },
     { name: 'IA', href: '#ai-agents' },
+    { name: 'Queue Engine', href: '#queue-engine' },
     { name: 'Precios', href: '#pricing' },
-    { name: 'Contacto', href: '#contact' },
   ];
 
   return (
@@ -563,6 +567,186 @@ function AIAgents() {
   );
 }
 
+// Queue Engine Section
+function QueueEngine() {
+  const features = [
+    {
+      icon: GitBranch,
+      title: 'Distribución Inteligente',
+      description: 'El algoritmo analiza en tiempo real la carga de cada barra y distribuye automáticamente las órdenes al punto con menor tiempo de espera.',
+    },
+    {
+      icon: Activity,
+      title: 'Monitoreo en Vivo',
+      description: 'Visualiza el estado de todas tus barras con indicadores de color. Rojo para sobrecarga, verde para óptimo, y alertas automáticas.',
+    },
+    {
+      icon: Timer,
+      title: 'Predicción de Tiempos',
+      description: 'Machine learning predice tiempos de espera basándose en históricos, hora del día, y complejidad de órdenes en cola.',
+    },
+    {
+      icon: Gauge,
+      title: 'Auto-Balanceo',
+      description: 'Cuando una barra supera el umbral de carga, el sistema redirige automáticamente nuevas órdenes a puntos menos saturados.',
+    },
+  ];
+
+  return (
+    <section id="queue-engine" className="section bg-gray-900 text-white overflow-hidden">
+      <div className="container-custom">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 rounded-full text-orange-400 text-sm font-medium mb-6">
+            <Zap className="w-4 h-4" />
+            <span>Queue Engine</span>
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            Motor de Optimización de{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Carga en Barras</span>
+          </h2>
+          <p className="text-lg text-gray-400">
+            Tecnología avanzada que balancea la carga entre todas tus barras en tiempo real,
+            reduciendo tiempos de espera y maximizando la eficiencia operativa.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          {/* Features Grid */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6 hover:border-orange-500/50 transition-colors"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-gray-400 text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Live Dashboard Mockup */}
+          <div className="relative">
+            <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-sm font-medium">Monitor en Vivo</span>
+                </div>
+                <span className="text-xs text-gray-500">Actualizado hace 2s</span>
+              </div>
+
+              {/* Bars Status */}
+              <div className="space-y-4 mb-6">
+                {[
+                  { name: 'Barra Principal', load: 85, orders: 23, wait: '4.2', status: 'high' },
+                  { name: 'Barra VIP', load: 45, orders: 8, wait: '1.8', status: 'normal' },
+                  { name: 'Barra Terraza', load: 72, orders: 15, wait: '3.1', status: 'medium' },
+                  { name: 'Barra Pista', load: 92, orders: 28, wait: '5.7', status: 'critical' },
+                  { name: 'Barra Entrada', load: 35, orders: 6, wait: '1.2', status: 'low' },
+                ].map((bar, i) => (
+                  <div key={i} className="bg-gray-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full ${
+                          bar.status === 'critical' ? 'bg-red-500 animate-pulse' :
+                          bar.status === 'high' ? 'bg-orange-500' :
+                          bar.status === 'medium' ? 'bg-yellow-500' :
+                          bar.status === 'low' ? 'bg-blue-500' : 'bg-green-500'
+                        }`} />
+                        <span className="text-sm font-medium">{bar.name}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-xs">
+                        <span className="text-gray-400">{bar.orders} órdenes</span>
+                        <span className={`font-medium ${
+                          bar.status === 'critical' || bar.status === 'high' ? 'text-red-400' : 'text-green-400'
+                        }`}>{bar.wait}min</span>
+                      </div>
+                    </div>
+                    <div className="w-full bg-gray-600 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          bar.status === 'critical' ? 'bg-red-500' :
+                          bar.status === 'high' ? 'bg-orange-500' :
+                          bar.status === 'medium' ? 'bg-yellow-500' :
+                          bar.status === 'low' ? 'bg-blue-500' : 'bg-green-500'
+                        }`}
+                        style={{ width: `${bar.load}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Auto-balance Alert */}
+              <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4 flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-4 h-4 text-orange-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-orange-400">Auto-balanceo activado</p>
+                  <p className="text-xs text-gray-400">Redirigiendo órdenes de Barra Pista → Barra Entrada</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Stats */}
+            <div className="absolute -top-4 -right-4 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-4 shadow-xl">
+              <p className="text-2xl font-bold">-60%</p>
+              <p className="text-xs text-white/80">Tiempo de espera</p>
+            </div>
+          </div>
+        </div>
+
+        {/* How it Works */}
+        <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-8 lg:p-12">
+          <h3 className="text-2xl font-bold text-center mb-8">¿Cómo funciona el Queue Engine?</h3>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: '01', title: 'Recepción', desc: 'Una nueva orden entra al sistema desde cualquier punto de venta' },
+              { step: '02', title: 'Análisis', desc: 'El algoritmo evalúa carga actual, tiempos y capacidad de cada barra' },
+              { step: '03', title: 'Asignación', desc: 'La orden se asigna a la barra óptima para menor tiempo de espera' },
+              { step: '04', title: 'Monitoreo', desc: 'El sistema ajusta continuamente según cambios en la demanda' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-sm font-bold">{item.step}</span>
+                </div>
+                <h4 className="font-bold mb-2">{item.title}</h4>
+                <p className="text-sm text-gray-400">{item.desc}</p>
+                {i < 3 && (
+                  <div className="hidden md:block absolute right-0 top-1/2 transform translate-x-1/2">
+                    <ArrowRight className="w-4 h-4 text-gray-600" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+          {[
+            { value: '60%', label: 'Reducción tiempo espera' },
+            { value: '3x', label: 'Mayor throughput' },
+            { value: '< 100ms', label: 'Tiempo de decisión' },
+            { value: '99.9%', label: 'Uptime garantizado' },
+          ].map((stat, i) => (
+            <div key={i} className="text-center p-6 bg-gray-800/30 rounded-xl border border-gray-700/50">
+              <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                {stat.value}
+              </p>
+              <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // Benefits Section
 function Benefits() {
   const benefits = [
@@ -918,7 +1102,7 @@ function CTA() {
 // Footer
 function Footer() {
   const links = {
-    Producto: ['Características', 'IA', 'Precios', 'Integraciones', 'API'],
+    Producto: ['Características', 'IA', 'Queue Engine', 'Precios', 'API'],
     Empresa: ['Sobre Nosotros', 'Blog', 'Carreras', 'Contacto'],
     Legal: ['Privacidad', 'Términos', 'Cookies'],
     Soporte: ['Centro de Ayuda', 'Documentación', 'Status'],
@@ -984,6 +1168,7 @@ export default function App() {
         <Hero />
         <Features />
         <AIAgents />
+        <QueueEngine />
         <Benefits />
         <Pricing />
         <CTA />
