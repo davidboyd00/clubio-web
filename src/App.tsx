@@ -262,7 +262,7 @@ function Hero() {
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
               <a href="#contact" className="btn btn-primary text-lg px-8 group">
-                Prueba Gratis 14 Días
+                Prueba Gratis 30 Días
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
               <a href="#software" className="btn btn-secondary text-lg px-8">
@@ -1636,7 +1636,7 @@ function CTA() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.5 }}
           >
-            14 días gratis. Sin tarjeta requerida.
+            30 días gratis. Sin tarjeta requerida.
           </motion.p>
         </motion.div>
       </div>
